@@ -1,0 +1,272 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Disable all auto-indent in IdeaVim
+set noai          " No auto-indent
+set nosi          " No smart indent
+set nocin         " No C-style indent
+set nosmartindent " No smart indent
+set noideajoin    " No IDE smart join
+set indentexpr=   " Clear indent expression
+
+"Then double-pressing space will open the "Go to File" dialog, same as in Neovim.
+map <Space><Space> <Action>(GotoFile)
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+" Enable which-key plugin
+set which-key
+
+" Increase timeout for which-key popup (5 seconds)
+set timeoutlen=5000
+
+" Optional: Uncomment below to disable timeout completely
+" set notimeout
+
+" ============================================================================
+" WHICH-KEY CONFIGURATION - Telescope & Buffer/Tab Management
+" ============================================================================
+
+" Set leader key explicitly
+let mapleader = " "
+
+" --- FILE FINDING (Telescope-like) ---
+let g:WhichKeyDesc_telescope = "<leader>f +Find/Search"
+
+let g:WhichKeyDesc_find_files = "<leader>ff Find Files"
+nnoremap <leader>ff :action GotoFile<CR>
+
+let g:WhichKeyDesc_find_text = "<leader>fg Find in Files (Grep)"
+nnoremap <leader>fg :action FindInPath<CR>
+
+let g:WhichKeyDesc_find_buffers = "<leader>fb Find Buffers"
+nnoremap <leader>fb :action Switcher<CR>
+
+let g:WhichKeyDesc_find_recent = "<leader>fr Recent Files"
+nnoremap <leader>fr :action RecentFiles<CR>
+
+let g:WhichKeyDesc_find_recent_locations = "<leader>fl Recent Locations"
+nnoremap <leader>fl :action RecentLocations<CR>
+
+let g:WhichKeyDesc_find_structure = "<leader>fs File Structure (Methods/Fields)"
+nnoremap <leader>fs :action FileStructurePopup<CR>
+
+let g:WhichKeyDesc_find_symbols = "<leader>fS Find Symbols (Project-wide)"
+nnoremap <leader>fS :action GotoSymbol<CR>
+
+let g:WhichKeyDesc_find_actions = "<leader>fa Find Actions"
+nnoremap <leader>fa :action GotoAction<CR>
+
+let g:WhichKeyDesc_find_class = "<leader>fc Find Class"
+nnoremap <leader>fc :action GotoClass<CR>
+
+" --- BUFFER/TAB MANAGEMENT ---
+let g:WhichKeyDesc_buffer = "<leader>b +Buffers/Tabs"
+
+let g:WhichKeyDesc_buffer_delete = "<leader>bd Close Buffer/Tab"
+nnoremap <leader>bd :action CloseContent<CR>
+
+let g:WhichKeyDesc_buffer_delete_others = "<leader>bo Close Other Buffers"
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+
+let g:WhichKeyDesc_buffer_next = "<leader>bn Next Buffer/Tab"
+nnoremap <leader>bn :action NextTab<CR>
+
+let g:WhichKeyDesc_buffer_previous = "<leader>bp Previous Buffer/Tab"
+nnoremap <leader>bp :action PreviousTab<CR>
+
+let g:WhichKeyDesc_buffer_list = "<leader>bb List Buffers"
+nnoremap <leader>bb :action Switcher<CR>
+
+let g:WhichKeyDesc_buffer_first = "<leader>bf First Buffer/Tab"
+nnoremap <leader>bf :action GoToTab1<CR>
+
+let g:WhichKeyDesc_buffer_last = "<leader>bl Last Buffer/Tab"
+nnoremap <leader>bl :action GoToLastTab<CR>
+
+" Quick tab navigation (like Neovim)
+nnoremap <Tab> :action NextTab<CR>
+nnoremap <S-Tab> :action PreviousTab<CR>
+
+" --- CODE NAVIGATION ---
+let g:WhichKeyDesc_goto = "<leader>g +Go To"
+
+let g:WhichKeyDesc_goto_definition = "<leader>gd Go to Definition"
+nnoremap <leader>gd :action GotoDeclaration<CR>
+
+let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to Implementation"
+nnoremap <leader>gi :action GotoImplementation<CR>
+
+let g:WhichKeyDesc_goto_type = "<leader>gt Go to Type"
+nnoremap <leader>gt :action GotoTypeDeclaration<CR>
+
+let g:WhichKeyDesc_goto_usages = "<leader>gu Find Usages"
+nnoremap <leader>gu :action FindUsages<CR>
+
+let g:WhichKeyDesc_goto_back = "<leader>gb Go Back"
+nnoremap <leader>gb :action Back<CR>
+
+let g:WhichKeyDesc_goto_forward = "<leader>gf Go Forward"
+nnoremap <leader>gf :action Forward<CR>
+
+" --- WINDOW MANAGEMENT ---
+let g:WhichKeyDesc_window = "<leader>w +Windows"
+
+let g:WhichKeyDesc_window_split_horizontal = "<leader>ws Split Horizontal"
+nnoremap <leader>ws :action SplitHorizontally<CR>
+
+let g:WhichKeyDesc_window_split_vertical = "<leader>wv Split Vertical"
+nnoremap <leader>wv :action SplitVertically<CR>
+
+let g:WhichKeyDesc_window_close = "<leader>wc Close Window"
+nnoremap <leader>wc :action CloseContent<CR>
+
+let g:WhichKeyDesc_window_close_others = "<leader>wo Close Other Windows"
+nnoremap <leader>wo :action CloseAllEditorsButActive<CR>
+
+let g:WhichKeyDesc_window_maximize = "<leader>wm Maximize Window"
+nnoremap <leader>wm :action MaximizeEditorInSplit<CR>
+
+" --- PANE MANAGEMENT ---
+let g:WhichKeyDesc_pane = "<leader>p +Panes"
+
+let g:WhichKeyDesc_pane_split_horizontal = "<leader>p- Split Horizontal"
+nnoremap <leader>p- :action SplitHorizontally<CR>
+
+let g:WhichKeyDesc_pane_split_vertical = "<leader>p| Split Vertical"
+nnoremap <leader>p\| :action SplitVertically<CR>
+
+let g:WhichKeyDesc_pane_next = "<leader>pn Next Pane"
+nnoremap <leader>pn :action NextSplitter<CR>
+
+let g:WhichKeyDesc_pane_previous = "<leader>pp Previous Pane"
+nnoremap <leader>pp :action PrevSplitter<CR>
+
+let g:WhichKeyDesc_pane_close = "<leader>pd Close Pane"
+nnoremap <leader>pd :action Unsplit<CR>
+
+let g:WhichKeyDesc_pane_close_others = "<leader>po Close Other Panes"
+nnoremap <leader>po :action UnsplitAll<CR>
+
+let g:WhichKeyDesc_pane_maximize = "<leader>pm Maximize Pane"
+nnoremap <leader>pm :action MaximizeEditorInSplit<CR>
+
+" Alternative Vim-style pane navigation (Ctrl+w h/j/k/l)
+nnoremap <C-w>h :action PrevSplitter<CR>
+nnoremap <C-w>l :action NextSplitter<CR>
+nnoremap <C-w>j :action NextSplitter<CR>
+nnoremap <C-w>k :action PrevSplitter<CR>
+
+" --- CODE ACTIONS ---
+let g:WhichKeyDesc_code = "<leader>c +Code"
+
+let g:WhichKeyDesc_code_action = "<leader>ca Code Action"
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+
+let g:WhichKeyDesc_code_rename = "<leader>cr Rename"
+nnoremap <leader>cr :action RenameElement<CR>
+
+let g:WhichKeyDesc_code_format = "<leader>cf Format Code"
+nnoremap <leader>cf :action ReformatCode<CR>
+
+let g:WhichKeyDesc_code_optimize = "<leader>co Optimize Imports"
+nnoremap <leader>co :action OptimizeImports<CR>
+
+" --- DEBUGGING ---
+let g:WhichKeyDesc_debug = "<leader>d +Debug"
+
+let g:WhichKeyDesc_debug_start = "<leader>dd Start Debug"
+nnoremap <leader>dd :action Debug<CR>
+
+let g:WhichKeyDesc_debug_breakpoint = "<leader>db Toggle Breakpoint"
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+
+let g:WhichKeyDesc_debug_step_over = "<leader>dn Step Over"
+nnoremap <leader>dn :action StepOver<CR>
+
+let g:WhichKeyDesc_debug_step_into = "<leader>di Step Into"
+nnoremap <leader>di :action StepInto<CR>
+
+let g:WhichKeyDesc_debug_step_out = "<leader>do Step Out"
+nnoremap <leader>do :action StepOut<CR>
+
+let g:WhichKeyDesc_debug_resume = "<leader>dr Resume"
+nnoremap <leader>dr :action Resume<CR>
+
+" --- RUNNING ---
+let g:WhichKeyDesc_run = "<leader>r +Run"
+
+let g:WhichKeyDesc_run_run = "<leader>rr Run"
+nnoremap <leader>rr :action Run<CR>
+
+let g:WhichKeyDesc_run_context = "<leader>rc Run Context"
+nnoremap <leader>rc :action RunClass<CR>
+
+let g:WhichKeyDesc_run_stop = "<leader>rs Stop"
+nnoremap <leader>rs :action Stop<CR>
+
+" --- GIT ---
+let g:WhichKeyDesc_git = "<leader>v +Git/VCS"
+
+let g:WhichKeyDesc_git_status = "<leader>vs Git Status"
+nnoremap <leader>vs :action Vcs.Show.Local.Changes<CR>
+
+let g:WhichKeyDesc_git_commit = "<leader>vc Git Commit"
+nnoremap <leader>vc :action CheckinProject<CR>
+
+let g:WhichKeyDesc_git_branches = "<leader>vb Git Branches"
+nnoremap <leader>vb :action Git.Branches<CR>
+
+let g:WhichKeyDesc_git_pull = "<leader>vp Git Pull"
+nnoremap <leader>vp :action Vcs.UpdateProject<CR>
+
+let g:WhichKeyDesc_git_push = "<leader>vP Git Push"
+nnoremap <leader>vP :action Vcs.Push<CR>
+
+" --- PROJECT/FILE TREE ---
+let g:WhichKeyDesc_explorer = "<leader>e +Explorer"
+
+let g:WhichKeyDesc_explorer_toggle = "<leader>ee Toggle Explorer"
+nnoremap <leader>ee :action SelectInProjectView<CR>
+
+let g:WhichKeyDesc_explorer_focus = "<leader>ef Focus Explorer"
+nnoremap <leader>ef :action ActivateProjectToolWindow<CR>
+
+" --- TERMINAL ---
+let g:WhichKeyDesc_terminal = "<leader>t +Terminal"
+
+let g:WhichKeyDesc_terminal_toggle = "<leader>tt Toggle Terminal"
+nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
+
+" ============================================================================
+" END WHICH-KEY CONFIGURATION
+" ============================================================================
