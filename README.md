@@ -10,17 +10,17 @@ All configs follow the XDG standard and live under `~/.config/`. The dotfiles re
 
 ### What gets installed
 
-- **Ghostty** — GPU-accelerated terminal emulator
-- **Zsh + Oh My Zsh** — Shell with autosuggestions, syntax highlighting, and vi mode
-- **Starship** — Fast prompt with Tokyo Night Powerline theme
-- **FZF** — Fuzzy finder for files and command history
-- **Zoxide** — Smart directory jumping (replaces `cd`)
-- **Tmux** — Terminal multiplexer with vim navigation, session restore, and which-key
-- **Neovim (LazyVim)** — Editor with Telescope, Harpoon, Gitsigns, Java/Spring Boot support
-- **Ripgrep** — Fast search (used by Telescope)
-- **Git + GitHub CLI** — Version control
-- **Java 21 (OpenJDK)** — JDK for development
-- **Node.js** — Required by some Neovim plugins
+- 👻 **Ghostty** — GPU-accelerated terminal emulator
+- 🐚 **Zsh + Oh My Zsh** — Shell with autosuggestions, syntax highlighting, and vi mode
+- 🚀 **Starship** — Fast prompt with Tokyo Night Powerline theme
+- 🔍 **FZF** — Fuzzy finder for files and command history
+- 📂 **Zoxide** — Smart directory jumping (replaces `cd`)
+- 🪟 **Tmux** — Terminal multiplexer with vim navigation, session restore, and which-key
+- ✏️ **Neovim (LazyVim)** — Editor with Telescope, Harpoon, Gitsigns, Java/Spring Boot support
+- ⚡ **Ripgrep** — Fast search (used by Telescope)
+- 🌐 **Git + GitHub CLI** — Version control
+- ☕ **Java 21 (OpenJDK)** — JDK for development
+- 📦 **Node.js** — Required by some Neovim plugins
 
 ### Repo structure
 
@@ -56,20 +56,33 @@ All configs follow the XDG standard and live under `~/.config/`. The dotfiles re
 
 ## Installation Guide
 
-Run these commands **in order** on a fresh macOS install.
+Run these steps **in order** on a fresh macOS install.
 
 ### 1. Install Homebrew
 
+> ⚠️ Run these **one at a time** — wait for Homebrew to finish installing before running the second command.
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+```bash
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
 ### 2. Install Ghostty
 
-Download and install from [ghostty.org](https://ghostty.org). Open Ghostty for the remaining steps.
+> 📋 Single command — paste and run.
+
+```bash
+brew install --cask ghostty
+```
+
+Open Ghostty and use it for the remaining steps.
 
 ### 3. Install tools via Homebrew
+
+> 📋 Paste the whole block — both lines will run together.
 
 ```bash
 brew install git neovim tmux starship fzf zoxide ripgrep gh node
@@ -78,25 +91,35 @@ brew install zsh-autosuggestions zsh-syntax-highlighting
 
 ### 4. Install Java 21
 
+> ⚠️ Run these **one at a time** — the second command requires `sudo` (you'll be prompted for your password).
+
 ```bash
 brew install openjdk@21
+```
+
+```bash
 sudo ln -sfn $(brew --prefix openjdk@21)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk
 ```
 
 ### 5. Install Oh My Zsh
 
+> ⚠️ Run these **one at a time** — Oh My Zsh install is interactive and will prompt you. After it finishes, run the two git clone commands.
+
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-Then install the custom plugins:
-
 ```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
 ### 6. Clone this repo
+
+> 📋 Single command — paste and run.
 
 ```bash
 git clone https://github.com/k4dy/dotfiles.git ~/dotfiles
@@ -104,44 +127,31 @@ git clone https://github.com/k4dy/dotfiles.git ~/dotfiles
 
 ### 7. Create symlinks
 
-Back up any existing configs first, then create the symlinks:
+> 📋 **Copy and paste this entire block at once** — all symlinks will be created in one go.
 
 ```bash
-# Home directory
 ln -sf ~/dotfiles/.zshenv ~/.zshenv
 ln -sf ~/dotfiles/.ideavimrc ~/.ideavimrc
-
-# Zsh
 mkdir -p ~/.config/zsh
 ln -sf ~/dotfiles/.config/zsh/.zshrc ~/.config/zsh/.zshrc
 ln -sf ~/dotfiles/.config/zsh/.zprofile ~/.config/zsh/.zprofile
 ln -sf ~/dotfiles/.config/zsh/.fzf.zsh ~/.config/zsh/.fzf.zsh
-
-# Tmux
 mkdir -p ~/.config/tmux
 ln -sf ~/dotfiles/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf
-
-# Neovim
 ln -sf ~/dotfiles/.config/nvim ~/.config/nvim
-
-# Git
 mkdir -p ~/.config/git
 ln -sf ~/dotfiles/.config/git/config ~/.config/git/config
 ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
-
-# Starship
 ln -sf ~/dotfiles/.config/starship.toml ~/.config/starship.toml
-
-# Ghostty
 mkdir -p ~/.config/ghostty
 ln -sf ~/dotfiles/.config/ghostty/config ~/.config/ghostty/config
-
-# GitHub CLI
 mkdir -p ~/.config/gh
 ln -sf ~/dotfiles/.config/gh/config.yml ~/.config/gh/config.yml
 ```
 
 ### 8. Set up Tmux plugins
+
+> ⚠️ Run these **one at a time** and follow the instructions between commands.
 
 Clone TPM (Tmux Plugin Manager):
 
@@ -149,37 +159,34 @@ Clone TPM (Tmux Plugin Manager):
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
-Install all plugins:
+Start tmux:
 
 ```bash
-# Start tmux
 tmux
-
-# Inside tmux, install plugins by pressing:
-#   Ctrl+A then I (capital i)
-#
-# Wait for the install to finish, then reload config:
-#   Ctrl+A then r
-#
-# Or install plugins from the command line without opening tmux:
-~/.config/tmux/plugins/tpm/bin/install_plugins
 ```
+
+Inside tmux, install all plugins by pressing **`Ctrl+A`** then **`I`** (capital i).
+Wait for the install to finish (you'll see a success message at the bottom).
+
+Then reload the config by pressing **`Ctrl+A`** then **`r`**.
 
 Verify plugins are installed:
 
 ```bash
 ls ~/.config/tmux/plugins/
-# Should show: tpm, vim-tmux-navigator, tmux-themepack,
-#   tmux-resurrect, tmux-continuum, tmux-which-key
+# Should show: tpm  vim-tmux-navigator  tmux-themepack
+#   tmux-resurrect  tmux-continuum  tmux-which-key
 ```
 
 ### 9. Set up Neovim
+
+> 📋 Single command — paste and run.
 
 ```bash
 nvim
 ```
 
-On first launch, Lazy.nvim will auto-install all plugins. Wait for it to finish (you'll see a progress window), then quit and reopen nvim:
+On first launch, Lazy.nvim will auto-install all plugins. Wait for the progress window to finish, then quit and reopen:
 
 ```
 :qa
@@ -194,7 +201,7 @@ Close and reopen Ghostty, or run:
 exec zsh
 ```
 
-Everything should now be working — Starship prompt, autosuggestions, syntax highlighting, FZF, zoxide, and vi mode.
+Everything should now be working — Starship prompt, autosuggestions, syntax highlighting, FZF, zoxide, and vi mode. 🎉
 
 ---
 
